@@ -12,6 +12,24 @@ exports.index = function(request, response)
     });
 };
 
+exports.create = function(request, response)
+{
+    const item = new Item(request.body);
+    Item.create(item, function(error, results)
+    {
+        if (error)
+        {
+            return response.send(error);
+        }
+        response.redirect('/items');
+    });
+};
+
+exports.new = function(request, response)
+{
+    response.render('items/new.html');
+};
+
 exports.show = function(request, response)
 {
     Item.show(request.params.id, function(error, results)
